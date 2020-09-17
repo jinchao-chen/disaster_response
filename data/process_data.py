@@ -4,14 +4,14 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
-    """Load and merge the dataframes
+    """Loads and merges the dataframes.
     
-    Parameters:
-    messages_filepath: str , path for message file 
-    categories_filepath: str , path for category file 
+    Args:
+        messages_filepath: str , path for message file 
+        categories_filepath: str , path for category file 
 
     Return:
-    df: pd.DataFrame, a dataframe combines messages and categories information
+        df: a dataframe combines messages and categories information
     """
     # Read the info contained in the csv files
     messages = pd.read_csv(messages_filepath)
@@ -25,6 +25,13 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def split_expand_categories(categories):
+    """Splits and expands "categories"
+
+    Args:
+        categories: dataframe containing category information for each entries
+    Return:
+        categories: updated dataframe
+    """
     categories = categories["categories"].str.split(";", expand=True)
 
     # verify if the sequence of category is consitent among all the rows
@@ -51,15 +58,14 @@ def split_expand_categories(categories):
 
 
 def clean_data(df):
-
-    # drop duplicates
+    """"Removes duplicates"""
     df.drop_duplicates(inplace=True)
     # To do drop NaN files
     return df
 
 
 def save_data(df, database_filename):
-
+    """Loads the table to the database"""
     engine = create_engine("sqlite:///{:}".format(database_filename))
     df.to_sql(database_filename.split(".")[0], engine, index=False)
 
