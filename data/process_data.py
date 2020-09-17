@@ -16,15 +16,16 @@ def load_data(messages_filepath, categories_filepath):
     # Read the info contained in the csv files
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
+    df = pd.merge(messages, categories)
 
     # Split column 'categories' into multiple rows, split and expand categories
-    categories_expanded = split_expand_categories(categories)
-    df = messages.join(categories_expanded)
+    categories_expanded = split_expand_categories(df)
+    df = df.merge(categories_expanded) # join on 'id'
 
-    return df
+    return df, categories_expanded
 
 
-def split_expand_categories(categories):
+def split_expand_categories(df):
     """Splits and expands "categories"
 
     Args:
@@ -32,7 +33,8 @@ def split_expand_categories(categories):
     Return:
         categories: updated dataframe
     """
-    categories = categories["categories"].str.split(";", expand=True)
+#     categories_in = df["categories"].copy()
+    categories = df["categories"].str.split(";", expand=True)
 
     # verify if the sequence of category is consitent among all the rows
     for col in categories.columns:
@@ -53,6 +55,8 @@ def split_expand_categories(categories):
         categories[column] = categories[column].apply(lambda x: x[-1])
         # convert column from string to numeric
         categories[column] = categories[column].astype("int")
+
+    categories['id'] = df['id']
 
     return categories
 
@@ -83,6 +87,10 @@ def main():
             )
         )
         df = load_data(messages_filepath, categories_filepath)
+
+        print(df)
+
+        df.to_csv('test.csv')
 
         print("Cleaning data...")
         df = clean_data(df)
