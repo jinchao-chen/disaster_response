@@ -62,8 +62,13 @@ def split_expand_categories(df):
 
 
 def clean_data(df):
-    """"Removes duplicates"""
+    """"Removes duplicates
+    
+    to-dos: 
+        - correct cat-values that is neither 0 nor 1 
+    """
     df.drop_duplicates(inplace=True)
+    df = df.replace(2,1)
     # To do drop NaN files
     return df
 
@@ -71,7 +76,7 @@ def clean_data(df):
 def save_data(df, database_filename):
     """Loads the table to the database"""
     engine = create_engine("sqlite:///{:}".format(database_filename))
-    df.to_sql(database_filename.split(".")[0], engine, index=False)
+    df.to_sql(database_filename.split(".")[0], engine, index=False, if_exists = 'replace')
 
     return None
 
@@ -86,10 +91,7 @@ def main():
                 messages_filepath, categories_filepath
             )
         )
-        df = load_data(messages_filepath, categories_filepath)
-
-        print(df)
-
+        df, categories_expanded = load_data(messages_filepath, categories_filepath)
         df.to_csv('test.csv')
 
         print("Cleaning data...")
