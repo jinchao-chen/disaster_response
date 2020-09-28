@@ -66,7 +66,6 @@ The Project is divided in the following sections:
 Areas to further optimize in the future:
 
 - Improve visualizations to the web app.
-- Based on the categories that the ML algorithm classifies text into, advise some organizations to connect to.
 - Customize the design of the web app.
 - Deploy the web app to a cloud service provider.
 - Improve the efficiency of the code in the ETL and ML pipeline.
