@@ -41,8 +41,8 @@ The Project is divided in the following sections:
 ├── models
 │   └── train_classifier.py # scripts to train the classifier 
 └── notebooks
-    ├── ETL\ Pipeline\ Preparation.ipynb
-    └── ML\ Pipeline\ Preparation.ipynb
+    ├── ETL Pipeline Preparation.ipynb
+    └── ML Pipeline Preparation.ipynb
 ```
 ### How To:
 1. Run the following commands in the project's root directory to set up your database and model.
