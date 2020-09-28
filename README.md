@@ -25,26 +25,25 @@ The Project is divided in the following sections:
 ### Dependences
 
 ### Folder Structure
-
+```
 ├── LICENSE
 ├── README.md
 ├── app
-│   ├── run.py
+│   ├── run.py  # Flask file that runs the app
 │   └── templates
-│       ├── go.html
-│       └── master.html
+│       ├── go.html # web page contains the classification result
+│       └── master.html # main page of web app
 ├── data
-│   ├── DisasterResponse.db
-│   ├── disaster_categories.csv
+│   ├── DisasterResponse.db # database stores the processed data
+│   ├── disaster_categories.csv 
 │   ├── disaster_messages.csv
-│   ├── process_data.py
+│   └── process_data.py # scripts to clean and store the text messages
 ├── models
-│   ├── classifier.pkl
-│   └── train_classifier.py
-├── notebooks
-│   ├── ETL\ Pipeline\ Preparation.ipynb
-│   └── ML\ Pipeline\ Preparation.ipynb
-
+│   └── train_classifier.py # scripts to train the classifier 
+└── notebooks
+    ├── ETL\ Pipeline\ Preparation.ipynb
+    └── ML\ Pipeline\ Preparation.ipynb
+```
 ### How To:
 1. Run the following commands in the project's root directory to set up your database and model.
 
