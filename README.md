@@ -61,7 +61,16 @@ The Project is divided in the following sections:
 
 - [Figure Eight](https://www.figure-eight.com) provided the prelabeled tweets and text messages used for model training
 - The outline of the project is set up by [Udacity](https://www.udacity.com)
- 
+
+## Futures
+Areas to further optimize in the future:
+
+- Improve visualizations to the web app.
+- Based on the categories that the ML algorithm classifies text into, advise some organizations to connect to.
+- Customize the design of the web app.
+- Deploy the web app to a cloud service provider.
+- Improve the efficiency of the code in the ETL and ML pipeline.
+- Optimize the model to better handle imbalanced input
 
 ## Contact
 [Jinchao Chen](tjuchenjinchao@gmail.com)
