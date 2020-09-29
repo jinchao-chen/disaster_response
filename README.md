@@ -69,7 +69,8 @@ Areas to further optimize in the future:
 - Customize the design of the web app.
 - Deploy the web app to a cloud service provider.
 - Improve the efficiency of the code in the ETL and ML pipeline.
-- Optimize the model to better handle imbalanced input
+- Optimize the model to better handle imbalanced input 
+- EDA to further analyze data categories.
 
 ## Contact
 [Jinchao Chen](tjuchenjinchao@gmail.com)
