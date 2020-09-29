@@ -39,13 +39,25 @@ def index():
     
     # extract data needed for visuals
     # TODO: Below is an example - modify to extract data for your own visuals
+    
+    # Grahp 1
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
-    
+
+
+    # Graph 2
+    label_names = df.columns[4::]
+    cat_columns = [cat_name  for cat_name in label_names if '_related' in cat_name]
+    cat_counts = df[cat_columns].sum()
+    cat_names = list(cat_counts.index)
+
+    # Graph 3
+    lable_counts = df[label_names].sum()
+
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
-        
+
             # Graph 1 - 
         {
             'data': [
@@ -65,27 +77,46 @@ def index():
                 }
             }
         },
-         # Graph 2 - 
+        # Graph 2 - 
         {
             'data': [
                 Bar(
-                    x=genre_names,
-                    y=genre_counts
+                    x=cat_names,
+                    y=cat_counts
                 )
             ],
 
             'layout': {
-                'title': 'Distribution of Message Genres',
+                'title': 'Distribution of Related Category',
                 'yaxis': {
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Genre"
+                    'title': "Related category"
+                }
+            }
+        },
+        # Graph 3-
+        {
+            'data': [
+                Bar(
+                    x=label_names,
+                    y=lable_counts.values
+                )
+            ],
+
+            'layout': {
+                'title': 'Counts of Each Labels',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Message Labels"
                 }
             }
         }
     ]
-    
+
     # encode plotly graphs in JSON
     ids = ["graph-{}".format(i) for i, _ in enumerate(graphs)]
     graphJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)

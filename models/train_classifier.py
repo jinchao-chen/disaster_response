@@ -30,7 +30,7 @@ def load_data(database_filepath):
 
     Args:
         database_filepath (str): database location
-    
+
     Returns:
         X (numpy.ndarray): T
         Y (numpy.ndarray):
@@ -44,7 +44,7 @@ def load_data(database_filepath):
     df = pd.read_sql_table(table_name="DisasterResponse", con=engine)
     X = df["message"].values
 
-    cat_names = df.columns[5::].values
+    cat_names = df.columns[4::].values
     Y = df[cat_names].values
 
     return X, Y, cat_names
@@ -56,10 +56,10 @@ def tokenize(text):
 
     Args: 
         text (str): the content of the message
-    
+
     Return:
         words (list): list of tokenized message
-    
+
     """
     # Normalize the text
     text = re.sub(r"\W", " ", text.lower().strip())
@@ -100,8 +100,8 @@ def build_model():
     )
     # Use gridsearch to finetune the model
     parameters = {
-        "clf__estimator__max_depth": [10, 50],
-        "tfidf__sublinear_tf": [True, False],
+        "clf__estimator__max_depth": [10],
+        # "tfidf__sublinear_tf": [True, False],
     }
     cv = GridSearchCV(pipeline, param_grid=parameters)
 
@@ -109,7 +109,6 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-
     """Evaluate the created model
 
     Args:
@@ -117,8 +116,9 @@ def evaluate_model(model, X_test, Y_test, category_names):
         X_test (numpy.ndarray): Testing features
         Y_test (numpy.ndarray): Testing labels
         category_names (numpy.ndarray): Names of the features
-    
+
     Returns:
+
         None
     """
 
@@ -127,7 +127,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     for idx, cat in enumerate(category_names):
         print("------------------------")
         print("{:}".format(cat.upper()))
-        print(classification_report(Y_test[idx], Y_pred[:, idx]))
+        print(classification_report(Y_test[:, idx], Y_pred[:, idx]))
     pass
 
 
@@ -137,7 +137,7 @@ def save_model(model, model_filepath):
     Args:
         model (sklearn.pipeline): Trained ML model
         model_filepath (str): Pickle file path name
-    
+
     Returns:
         None
     """
@@ -152,7 +152,8 @@ def main():
         database_filepath, model_filepath = sys.argv[1:]
         print("Loading data...\n    DATABASE: {}".format(database_filepath))
         X, Y, category_names = load_data(database_filepath)
-        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
+        X_train, X_test, Y_train, Y_test = train_test_split(
+            X, Y, test_size=0.2)
 
         print("Building model...")
         model = build_model()
@@ -164,7 +165,7 @@ def main():
         evaluate_model(model, X_test, Y_test, category_names)
 
         print("Saving model...\n    MODEL: {}".format(model_filepath))
-        save_model(model, model_filepath)
+        save_model(model.best_estimator_, model_filepath)
 
         print("Trained model saved!")
 
