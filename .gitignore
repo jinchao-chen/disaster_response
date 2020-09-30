@@ -131,3 +131,6 @@ app/.vscode/settings.json
 models/.vscode/settings.json
 models/-f
 models/Untitled.ipynb
+.idea
+.vscode
+data/Untitled.ipynb

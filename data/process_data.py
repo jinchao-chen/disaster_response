@@ -67,10 +67,9 @@ def clean_data(df):
     to-dos: 
         - correct cat-values that is neither 0 nor 1 
     """
-    df = df.drop_duplicates(inplace=True)
+    df = df.drop_duplicates()
     df = df.replace(2,1)
     df = df.drop('categories', axis =1)
-    # To do drop NaN files
     return df
 
 
