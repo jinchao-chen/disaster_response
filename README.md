@@ -60,7 +60,6 @@ The Project is divided in the following sections:
 ## Acknowledgements <a name="cknowledgements"></a>
 
 - [Figure Eight](https://www.figure-eight.com) provided the prelabeled tweets and text messages used for model training
-- The outline of the project is set up by [Udacity](https://www.udacity.com)
 
 ## Futures
 Areas to further optimize in the future:
